@@ -23,12 +23,7 @@ function encodeNumber(number) {
 }
 
 function encode(text) {
-    let result = ""
-    text.split("").map((character, index) => {
-        const asciiValue = text.charCodeAt(index).toString();
-        result += encodeNumber(asciiValue) + separator
-    }).join("")
-    return result
+    return text.split("").map((character, index) => encodeNumber(text.charCodeAt(index).toString()) + separator).join("")
 }
 
 document.getElementById("encode").addEventListener("click", () => {
