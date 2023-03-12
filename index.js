@@ -2,7 +2,7 @@ const input = document.getElementById("input")
 const output = document.getElementById("output")
 const characterAmount = document.getElementById("characterAmount")
 
-const loader = `return(function(a)local b={["!"]="1",["@"]="2",["#"]="3",["$"]="4",["%"]="5",["^"]="6",["&"]="7",["*"]="8",["("]="9",[")"]="0"}local function c(d)d=d:gsub("|","")local e=""for f=1,#d do local g=d:sub(f,f)local h=b[g]e=e..h end;return e end;local e=""for i in a:gmatch("([^|]+)")do if i then e=e..string.char(tonumber(c(i)))end end;loadstring(e)()end)("`
+const loader = `return(function(a)local b={["!"]="1",["@"]="2",["#"]="3",["$"]="4",["%"]="5",["^"]="6",["&"]="7",["*"]="8",["("]="9",[")"]="0"}local function c(d)d=d:gsub("|","")local e=""for f=1,#d do local g=d:sub(f,f)local h=b[g]e=e..h end;return e end;local e=""for i in a:gmatch("[^|]+")do if i then e=e..string.char(c(i))end end;loadstring(e)()end)("`
 
 const encodedNumbers = {
     "1": "!",
