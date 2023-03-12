@@ -2,31 +2,36 @@ const input = document.getElementById("input")
 const output = document.getElementById("output")
 const characterAmount = document.getElementById("characterAmount")
 
-const loader = `return(function(a)local b={["!"]="1",["@"]="2",["#"]="3",["$"]="4",["%"]="5",["^"]="6",["&"]="7",["*"]="8",["("]="9",[")"]="0"}local function c(d)d=d:gsub("|","")local e=""for f=1,#d do local g=d:sub(f,f)local h=b[g]e=e..h end;return e end;local e=""for i in a:gmatch("[^|]+")do if i then e=e..string.char(c(i))end end;loadstring(e)()end)("`
+const loader = `]], "..", function(s)a,b=s:sub(1,1):byte(),s:sub(2,2):byte()return string.char((16*(a<48 and a-33 or a-109))+(b<48 and b-33 or b-109))end))()`
 
 const encodedNumbers = {
-    "1": "!",
-    "2": "@",
-    "3": "#",
-    "4": "$",
-    "5": "%",
-    "6": "^",
-    "7": "&",
-    "8": "*",
-    "9": "(",
-    "0": ")"
+  "0": "!",
+  "1": "\"",
+  "2": "#",
+  "3": "$",
+  "4": "%",
+  "5": "&",
+  "6": "'",
+  "7": "(",
+  "8": ")",
+  "9": "*",
+  "10": "+",
+  "11": ",",
+  "12": "-",
+  "13": ".",
+  "14": "/",
+  "15": "|"
 }
-const separator = "|"
 
 function encodeNumber(number) {
-    return number.split("").map(character => encodedNumbers[character]).join("")
+    return encodedNumbers[Math.floor(number / 16)] + encodedNumbers[number % 16]
 }
 
 function encode(text) {
-    return text.split("").map((character, index) => encodeNumber(text.charCodeAt(index).toString()) + separator).join("")
+    return text.split("").map((character, index) => encodeNumber(text.charCodeAt(index).toString())).join("")
 }
 
 document.getElementById("encode").addEventListener("click", () => {
-    output.innerHTML = loader + encode(input.value) + "\")"
+    output.innerHTML = "loadstring(string.gsub([[" + encode(input.value) + loader
     characterAmount.innerHTML = output.value.length + " chars"
 })
