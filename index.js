@@ -2,7 +2,7 @@ const input = document.getElementById("input")
 const output = document.getElementById("output")
 const characterAmount = document.getElementById("characterAmount")
 
-const loader = `]]loadstring(_:gsub("..",function(s)a,b=s:byte(1,2)return s.char(16*a+b-16*(a<48 and 33 or 109)-(b<48 and 33 or 109))end))()`
+const loader = `]]):gsub("..",function(s)a,b=s:byte(1,2)return s.char(16*a+b-16*(a<48 and 33 or 109)-(b<48 and 33 or 109))end))()`
 
 const encodedNumbers = {
   "0": "!",
@@ -32,6 +32,6 @@ function encode(text) {
 }
 
 document.getElementById("encode").addEventListener("click", () => {
-    output.innerHTML = "_=[[" + encode(input.value) + loader
+    output.innerHTML = "loadstring(([[" + encode(input.value) + loader
     characterAmount.innerHTML = output.value.length + " chars"
 })
